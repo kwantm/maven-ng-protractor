@@ -19,6 +19,9 @@
                 <configuration>
                     <protractor>${project.basedir}/node_modules/protractor/bin/protractor</protractor>
                     <beforeRunning>${project.basedir}/kill-chrome.bat</beforeRunning>
+                    <arguments>
+                        --params.env=dev
+                    </arguments>
                 </configuration>
                 <executions>
                     <execution>

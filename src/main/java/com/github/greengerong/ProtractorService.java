@@ -85,8 +85,9 @@ public class ProtractorService {
         if (OSUtils.isWindows()) {
             builder = new ProcessBuilder("cmd.exe", "/C", command.getProtractor(), command.toString());
         } else {
-            builder = new ProcessBuilder(command.getProtractor(), command.toString());
+            builder = new ProcessBuilder(command.getProtractor(), command.getConfigFilePath(), command.getArguments());
         }
+        log.info(command.getProtractor() + " " + command.toString());
         builder.redirectErrorStream(true);
         return builder;
     }

@@ -32,6 +32,8 @@ public class Command {
         return configFile;
     }
 
+    public String getConfigFilePath() {return configFile.getAbsolutePath(); }
+
     public boolean isDebug() {
         return debug;
     }
