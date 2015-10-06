@@ -1,10 +1,10 @@
 /******************************************
- *                                        *
+ * *
  * Auth: green gerong                     *
  * Date: 2014-03-02                       *
  * blog: http://greengerong.github.io/    *
  * github: https://github.com/greengerong *
- *                                        *
+ * *
  ******************************************/
 
 package com.github.greengerong;
@@ -14,6 +14,9 @@ import org.apache.maven.plugin.logging.Log;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ProtractorService {
     private boolean ignoreFailed;
@@ -82,11 +85,15 @@ public class ProtractorService {
 
     private ProcessBuilder createProcessBuilder(Command command) {
         ProcessBuilder builder;
+        List<String> commands = new ArrayList<String>();
         if (OSUtils.isWindows()) {
-            builder = new ProcessBuilder("cmd.exe", "/C", command.getProtractor(), command.toString());
-        } else {
-            builder = new ProcessBuilder(command.getProtractor(), command.getConfigFilePath(), command.getArguments());
+            commands.add("cmd.exe\"");
+            commands.add("/C\"");
         }
+        commands.add(command.getProtractor());
+        commands.add(command.getConfigFilePath());
+        commands.addAll(Arrays.asList(command.getArguments().split(" ")));
+        builder = new ProcessBuilder(commands);
         log.info(command.getProtractor() + " " + command.toString());
         builder.redirectErrorStream(true);
         return builder;
